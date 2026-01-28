@@ -8,12 +8,11 @@ use App\Http\Controllers\BerkasController;
 use App\Http\Controllers\SeleksiController;
 use App\Http\Controllers\PeriodeSeleksiController;
 
-// Default page
-Route::get('/', function () {
-    return view('welcome');
-});
 
-// Authenticated user routes
+
+Route::get('/', [PeriodeSeleksiController::class, 'index'])->name('landing');
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -24,11 +23,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Admin routes
+
 Route::middleware(['auth', 'role:ADMIN'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     
-    // Pendaftar management
+    
     Route::get('/pendaftar/{id}/edit', [AdminController::class, 'editJson'])->name('pendaftar.editJson');
     Route::get('/pendaftar/{id}/berkas', [AdminController::class, 'getBerkas'])->name('pendaftar.berkas');
     Route::put('/pendaftar/{id}/update', [AdminController::class, 'update'])->name('pendaftar.update');
@@ -38,34 +37,29 @@ Route::middleware(['auth', 'role:ADMIN'])->prefix('admin')->name('admin.')->grou
     
      Route::post('/pendaftar/store', [AdminController::class, 'storePendaftar'])->name('pendaftar.store');
 
-    // Admin profile
+    
     Route::put('/profile', [AdminController::class, 'updateProfile'])->name('updateProfile');
     Route::post('/password', [AdminController::class, 'updatePassword'])->name('updatePassword');
     
-    // CRUD admin
-// Ganti bagian CRUD admin dengan ini:
+    
+
 Route::post('/store', [AdminController::class, 'store'])->name('store');
 Route::get('/edit/{id}', [AdminController::class, 'editAdmin'])->name('edit');
-Route::put('/admin/{id}/update', [AdminController::class, 'updateAdmin'])->name('updateAdmin'); // ✅ Ubah nama
-Route::delete('/delete/{id}', [AdminController::class, 'destroyAdmin'])->name('delete'); // ✅ Sudah benar
+Route::put('/admin/{id}/update', [AdminController::class, 'updateAdmin'])->name('updateAdmin'); 
+Route::delete('/delete/{id}', [AdminController::class, 'destroyAdmin'])->name('delete'); 
 
-    // Routes Periode Seleksi
-    Route::prefix('periode')->name('periode.')->group(function () {
-        Route::get('/', [PeriodeSeleksiController::class, 'index'])->name('index');
-        Route::get('/create', [PeriodeSeleksiController::class, 'create'])->name('create');
-        Route::post('/', [PeriodeSeleksiController::class, 'store'])->name('store');
-        Route::get('/{id}/edit', [PeriodeSeleksiController::class, 'edit'])->name('edit');
-        Route::put('/{id}', [PeriodeSeleksiController::class, 'update'])->name('update');
-        Route::delete('/{id}', [PeriodeSeleksiController::class, 'destroy'])->name('destroy');
-        Route::post('/{id}/activate', [PeriodeSeleksiController::class, 'activate'])->name('activate');
-    });
     
-    // ✅ ROUTES SELEKSI - DIPERBAIKI
+    Route::post('/periode', [PeriodeSeleksiController::class, 'store'])->name('periode.store');
+    Route::put('/periode/{id}', [PeriodeSeleksiController::class, 'update'])->name('periode.update');
+    Route::delete('/periode/{id}', [PeriodeSeleksiController::class, 'destroy'])->name('periode.destroy');
+    Route::post('/periode/{id}/activate', [PeriodeSeleksiController::class, 'activate'])->name('periode.activate');
+    
+    
     Route::prefix('seleksi')->name('seleksi.')->group(function () {
         Route::get('/', [SeleksiController::class, 'index'])->name('index');
         Route::post('/proses-otomatis', [SeleksiController::class, 'prosesSeleksiOtomatis'])->name('proses');
         
-        // ✅ PERBAIKAN: Gunakan match untuk menerima POST dan PUT
+        
         Route::match(['POST', 'PUT'], '/{id}/update-status', [SeleksiController::class, 'updateStatus'])->name('updateStatus');
         
         Route::get('/export-pdf', [SeleksiController::class, 'exportPdf'])->name('pdf');
@@ -73,7 +67,7 @@ Route::delete('/delete/{id}', [AdminController::class, 'destroyAdmin'])->name('d
     });
 });
 
-// Pendaftar routes
+
 Route::middleware(['auth', 'role:PENDAFTAR'])->prefix('pendaftar')->name('pendaftar.')->group(function () {
     Route::get('/dashboard', [PendaftarController::class, 'index'])->name('dashboard');
     Route::post('/update', [PendaftarController::class, 'update'])->name('update');
@@ -88,5 +82,5 @@ Route::middleware(['auth', 'role:PENDAFTAR'])->prefix('pendaftar')->name('pendaf
     Route::post('/lock-prestasi', [PendaftarController::class, 'lockPrestasi'])->name('lockPrestasi');
 });
 
-// Auth routes
+
 require __DIR__.'/auth.php';

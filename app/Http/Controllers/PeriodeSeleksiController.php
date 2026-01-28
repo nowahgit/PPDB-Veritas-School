@@ -11,6 +11,12 @@ class PeriodeSeleksiController extends Controller
     /**
      * Store a newly created periode in storage.
      */
+    public function index()
+{
+    $periodeAktif = PeriodeSeleksi::where('status', 'aktif')->first();
+    return view('welcome', compact('periodeAktif')); // view landing page
+}
+
     public function store(Request $request)
     {
         // Validasi input

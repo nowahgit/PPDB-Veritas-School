@@ -1,5 +1,6 @@
 
-<div class="p-2 sm:p-6 bg-white rounded-xl shadow-md m-4 sm:m-6">
+<div class="flex-1 flex flex-col min-h-screen pt-4">
+<div class="p-6">
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
       <div>
