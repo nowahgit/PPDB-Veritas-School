@@ -43,7 +43,6 @@
 
 <body class="bg-gradient-to-br from-gray-50 to-gray-100 font-hubot overflow-hidden">
 
-  <!-- Mobile Header -->
   <div class="fixed top-0 left-0 right-0 bg-white shadow-md px-4 py-3 flex justify-between items-center md:hidden z-40">
     <div class="flex items-center gap-3">
       <img src="{{ asset('image/icon/icon.png') }}" alt="Logo" class="w-8 h-8">
@@ -56,21 +55,17 @@
     </button>
   </div>
 
-  <!-- Overlay -->
   <div id="overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden transition-opacity"></div>
 
   <div class="flex h-screen">
-    <!-- Sidebar -->
     <aside id="sidebar" class="fixed md:static top-0 left-0 w-64 bg-white h-screen shadow-xl flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-50">
       
-      <!-- Logo Section -->
       <div class="flex flex-col items-center justify-center py-6 border-b border-gray-100">
         <img src="{{ asset('image/icon/icon.png') }}" alt="Logo Sekolah" class="w-20 h-20 mb-3 drop-shadow-md">
         <h1 class="text-lg font-bold text-gray-800">PPDB System</h1>
         <p class="text-xs text-gray-500">Admin Panel</p>
       </div>
 
-      <!-- User Info -->
       <div class="px-4 py-4 border-b border-gray-100">
         <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
           <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold shadow-md">
@@ -83,11 +78,9 @@
         </div>
       </div>
 
-      <!-- Navigation -->
       <nav class="flex-1 p-4 overflow-y-auto">
         <ul class="space-y-2 text-gray-700 font-medium">
 
-          <!-- Home -->
           <li>
             <a href="#" onclick="showPage('home')" class="nav-link flex items-center px-4 py-3 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 transition-all duration-200 group">
               <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
@@ -99,7 +92,6 @@
             </a>
           </li>
 
-          <!-- Data Menu -->
           <li>
             <button class="w-full flex items-center justify-between px-4 py-3 rounded-lg hover:bg-gray-50 transition-all duration-200 group" onclick="toggleSubMenu('dataMenu')">
               <div class="flex items-center">
@@ -133,7 +125,6 @@
             </ul>
           </li>
 
-          <!-- Seleksi Menu -->
           <li>
             <button class="w-full flex items-center justify-between px-4 py-3 rounded-lg hover:bg-gray-50 transition-all duration-200 group" onclick="toggleSubMenu('seleksiMenu')">
               <div class="flex items-center">
@@ -166,7 +157,6 @@
             </ul>
           </li>
 
-          <!-- Settings -->
           <li>
             <a href="#" onclick="showPage('settings')" class="nav-link flex items-center px-4 py-3 rounded-lg hover:bg-gray-50 transition-all duration-200 group">
               <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center mr-3 group-hover:bg-gray-200 transition-colors">
@@ -181,7 +171,6 @@
         </ul>
       </nav>
 
-      <!-- Logout -->
       <div class="p-4 border-t border-gray-100">
         <button type="button" onclick="showLogoutModal()" class="w-full flex items-center justify-center bg-gradient-to-r from-red-500 to-red-600 text-white py-3 px-4 rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 font-medium shadow-md hover:shadow-lg group">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
@@ -192,13 +181,11 @@
       </div>
     </aside>
 
-    <!-- Main Content -->
     <div class="flex-1 flex flex-col h-screen overflow-hidden pt-16 md:pt-0 md:ml-12">
 
       <div class="flex-1 overflow-y-auto">
         <div class="p-4 md:p-6 lg:p-8">
           
-          <!-- HOME PAGE -->
           <div id="homePage" class="page-content animate-fade-in">
             <header class="mb-8">
               <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-2">
@@ -207,9 +194,7 @@
               <p class="text-gray-500 text-sm md:text-base">Kelola sistem PPDB dengan mudah dan efisien</p>
             </header>
 
-            <!-- Stats Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
-              <!-- Total Admin Card -->
               <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 text-white relative overflow-hidden group">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-white opacity-10 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
                 <div class="relative z-10">
@@ -226,7 +211,6 @@
                 </div>
               </div>
 
-              <!-- Total Pendaftar Card -->
               <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 text-white relative overflow-hidden group">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-white opacity-10 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
                 <div class="relative z-10">
@@ -243,7 +227,6 @@
                 </div>
               </div>
 
-              <!-- Pending Verification Card -->
               <div class="bg-gradient-to-br from-amber-500 to-orange-600 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 text-white relative overflow-hidden group">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-white opacity-10 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
                 <div class="relative z-10">
@@ -260,7 +243,6 @@
                 </div>
               </div>
 
-              <!-- Approved Card -->
               <div class="bg-gradient-to-br from-green-500 to-emerald-600 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 text-white relative overflow-hidden group">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-white opacity-10 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-500"></div>
                 <div class="relative z-10">
@@ -278,9 +260,7 @@
               </div>
             </div>
 
-            <!-- Quick Actions & Info -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-              <!-- Quick Actions -->
               <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6 hover:shadow-lg transition-shadow">
                 <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
@@ -337,7 +317,6 @@
                 </div>
               </div>
 
-              <!-- Informasi -->
               <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-md p-6 text-white">
                 <h2 class="text-xl font-semibold mb-4 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -362,7 +341,6 @@
               </div>
             </div>
 
-            <!-- Recent Activity -->
             <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
               <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center justify-between">
                 <span class="flex items-center">
@@ -405,27 +383,22 @@
             </div>
           </div>
 
-          <!-- DATA PENDAFTAR PAGE -->
           <div id="dataPendaftarPage" class="page-content hidden">
             @include('admin.datapendaftar')
           </div>
 
-          <!-- DATA ADMIN PAGE -->
           <div id="dataAdminPage" class="page-content hidden">
             @include('admin.dataadmin')
           </div>
 
-          <!-- SELEKSI PESERTA PAGE -->
           <div id="seleksiPesertaPage" class="page-content hidden">
             @include('admin.seleksipeserta')
           </div>
 
-          <!-- PERIODE SELEKSI PAGE -->
           <div id="periodeSeleksiPage" class="page-content hidden">
             @include('admin.periodeseleksi')
           </div>
 
-          <!-- SETTINGS PAGE -->
           <div id="settingsPage" class="page-content hidden">
             @include('admin.setting')    
           </div>
@@ -435,7 +408,6 @@
     </div>
   </div>
 
-  <!-- Logout Modal -->
   <div id="logoutModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all animate-slide-in">
       <div class="p-6 md:p-8">
@@ -472,16 +444,10 @@
 </html>
 
 <script>
-  // ===========================
-// KONFIGURASI & VARIABEL
-// ===========================
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
 const menuBtn = document.getElementById('menuBtn');
 
-// ===========================
-// MOBILE MENU TOGGLE
-// ===========================
 if (menuBtn && sidebar && overlay) {
   menuBtn.addEventListener('click', function() {
     sidebar.classList.toggle('-translate-x-full');
@@ -496,23 +462,17 @@ if (menuBtn && sidebar && overlay) {
   });
 }
 
-// ===========================
-// NAVIGATION FUNCTIONS
-// ===========================
 function showPage(pageName) {
-  // Hide all pages
   document.querySelectorAll('.page-content').forEach(page => {
     page.classList.add('hidden');
     page.classList.remove('animate-fade-in');
   });
 
-  // Remove active state from all nav links
   document.querySelectorAll('.nav-link').forEach(link => {
     link.classList.remove('bg-gradient-to-r', 'from-blue-50', 'to-indigo-50');
     link.classList.add('hover:bg-gray-50');
   });
 
-  // Page mapping
   const pageMap = {
     home: 'homePage',
     dataPendaftar: 'dataPendaftarPage',
@@ -531,27 +491,21 @@ function showPage(pageName) {
     }
   }
 
-  // Update active nav link
   const activeLink = event?.target?.closest('.nav-link');
   if (activeLink) {
     activeLink.classList.remove('hover:bg-gray-50');
     activeLink.classList.add('bg-gradient-to-r', 'from-blue-50', 'to-indigo-50');
   }
 
-  // Close sidebar on mobile
   if (window.innerWidth < 768 && sidebar && overlay) {
     sidebar.classList.add('-translate-x-full');
     overlay.classList.add('hidden');
     document.body.style.overflow = 'auto';
   }
 
-  // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ===========================
-// SUBMENU TOGGLE
-// ===========================
 function toggleSubMenu(menuId) {
   const menu = document.getElementById(menuId);
   const icon = document.getElementById(menuId + 'Icon');
@@ -562,9 +516,6 @@ function toggleSubMenu(menuId) {
   }
 }
 
-// ===========================
-// LOGOUT MODAL
-// ===========================
 function showLogoutModal() {
   const modal = document.getElementById('logoutModal');
   if (modal) {
@@ -581,9 +532,6 @@ function closeLogoutModal() {
   }
 }
 
-// ===========================
-// MODAL TAMBAH ADMIN
-// ===========================
 function openAddAdminModal() {
   const modal = document.getElementById('addAdminModal');
   if (modal) {
@@ -605,9 +553,6 @@ function closeAddAdminModal() {
   }
 }
 
-// ===========================
-// MODAL EDIT ADMIN
-// ===========================
 function openEditAdminModal(id, username, nama_panitia, email) {
   const modal = document.getElementById('editAdminModal');
   const form = document.getElementById('editAdminForm');
@@ -641,9 +586,6 @@ function closeEditAdminModal() {
   }
 }
 
-// ===========================
-// MODAL KONFIRMASI HAPUS
-// ===========================
 function openConfirmModal(element, url, method) {
   if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
     const form = document.createElement('form');
@@ -672,9 +614,6 @@ function openConfirmModal(element, url, method) {
   }
 }
 
-// ===========================
-// MODAL STATUS SELEKSI
-// ===========================
 function openStatusModal(userId, namaPendaftar, currentStatus) {
   const modal = document.getElementById('statusModal');
   const form = document.getElementById('statusForm');
@@ -705,9 +644,6 @@ function closeStatusModal() {
   }
 }
 
-// ===========================
-// MODAL TAMBAH PERIODE
-// ===========================
 function openAddModal() {
   const modal = document.getElementById('addModal');
   const form = document.getElementById('addForm');
@@ -729,9 +665,6 @@ function closeAddModal() {
   }
 }
 
-// ===========================
-// MODAL EDIT PERIODE
-// ===========================
 function openEditPeriodeModal(btn) {
   const modal = document.getElementById('editPeriodeModal');
   const form = document.getElementById('editPeriodeForm');
@@ -762,9 +695,6 @@ function closeEditPeriodeModal() {
   }
 }
 
-// ===========================
-// RESET SELEKSI
-// ===========================
 function confirmReset(periodeId) {
   if (confirm('⚠️ PERINGATAN!\n\nAnda akan mereset semua hasil seleksi periode ini.\nSemua status akan kembali ke "Belum Diseleksi".\n\nApakah Anda yakin?')) {
     const resetForm = document.getElementById('resetForm');
@@ -777,9 +707,6 @@ function confirmReset(periodeId) {
   }
 }
 
-// ===========================
-// PAGINATION
-// ===========================
 let currentPage = 1;
 const rowsPerPage = 25;
 let filteredRows = [];
@@ -828,9 +755,6 @@ function updatePagination() {
   });
 }
 
-// ===========================
-// MODAL EDIT PENDAFTAR
-// ===========================
 function openEditModal(userId) {
   fetch(`/admin/pendaftar/${userId}/edit`)
     .then(response => response.json())
@@ -876,9 +800,6 @@ function closeEditModal() {
   }
 }
 
-// ===========================
-// MODAL BERKAS
-// ===========================
 function showBerkas(userId) {
   fetch(`/admin/pendaftar/${userId}/berkas`)
     .then(response => response.json())
@@ -943,16 +864,11 @@ function closeBerkasModal() {
   }
 }
 
-// ===========================
-// EVENT LISTENERS
-// ===========================
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize pagination if exists
   if (document.getElementById('tableBody')) {
     updatePagination();
   }
   
-  // Pagination buttons
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
   
@@ -975,7 +891,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Search input
   const searchInput = document.getElementById('searchInput');
   if (searchInput) {
     searchInput.addEventListener('input', () => {
@@ -984,7 +899,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Edit form submit
   const editForm = document.getElementById('editForm');
   if (editForm) {
     editForm.addEventListener('submit', function(e) {
@@ -1016,7 +930,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Close modals on outside click
   const modals = [
     'addAdminModal',
     'editAdminModal', 
@@ -1047,7 +960,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  // Close modals with ESC key
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       closeAddAdminModal();
@@ -1061,7 +973,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Auto-hide alerts
   const alerts = document.querySelectorAll('.alert-auto-hide');
   alerts.forEach(alert => {
     setTimeout(() => {
@@ -1072,9 +983,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// ===========================
-// UTILITY FUNCTIONS
-// ===========================
 function formatDate(dateString) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return new Date(dateString).toLocaleDateString('id-ID', options);
@@ -1088,7 +996,6 @@ function formatCurrency(amount) {
   }).format(amount);
 }
 
-// Export functions for global use
 window.showPage = showPage;
 window.toggleSubMenu = toggleSubMenu;
 window.showLogoutModal = showLogoutModal;

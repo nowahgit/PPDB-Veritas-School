@@ -1,5 +1,4 @@
 <div class="md:ml-12 md:mr-12 md:mb-10 animate-fade-in">
-    <!-- Header Section -->
     <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl shadow-lg p-6 mb-6">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div class="text-white">
@@ -21,7 +20,6 @@
         </div>
     </div>
 
-    <!-- Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-5 text-white shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
             <div class="flex items-center justify-between">
@@ -60,9 +58,7 @@
         </div>
     </div>
 
-    <!-- Main Content Card -->
     <div class="bg-white rounded-2xl shadow-lg border border-gray-100">
-        <!-- Search Bar -->
         <div class="p-6 border-b border-gray-100">
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -77,7 +73,6 @@
             </div>
         </div>
 
-        <!-- Desktop Table View -->
         <div class="hidden lg:block overflow-x-auto">
             <table class="min-w-full text-sm">
                 <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
@@ -195,7 +190,6 @@
             </table>
         </div>
 
-        <!-- Mobile/Tablet Card View -->
         <div id="adminCardView" class="lg:hidden p-4 space-y-4">
             @forelse ($admins as $index => $admin)
             <div class="bg-gradient-to-br from-white to-gray-50 border-2 border-gray-100 rounded-xl p-5 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 admin-card" 
@@ -203,7 +197,6 @@
                  data-nama="{{ strtolower($admin->admin->nama_panitia ?? '') }}" 
                  data-email="{{ strtolower($admin->email ?? '') }}">
                 
-                <!-- Header -->
                 <div class="flex items-start justify-between mb-4">
                     <div class="flex items-center gap-3 flex-1">
                         <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg text-sm">
@@ -221,7 +214,6 @@
                     </div>
                 </div>
 
-                <!-- Info Grid -->
                 <div class="space-y-3 mb-4">
                     <div class="flex items-start gap-3 p-3 bg-white rounded-lg border border-gray-100">
                         <div class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -263,7 +255,6 @@
                     </div>
                 </div>
                 
-                <!-- Action Buttons -->
                 <div class="flex gap-2 pt-4 border-t-2 border-gray-100">
                     <button
                         onclick="openEditAdminModal({{ $admin->id }}, '{{ $admin->username }}', '{{ $admin->admin->nama_panitia ?? '' }}', '{{ $admin->email }}')"
@@ -292,7 +283,6 @@
             @endforelse
         </div>
 
-        <!-- Pagination -->
         @if($admins->hasPages())
         <div class="px-6 py-4 border-t border-gray-100 bg-gray-50">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -310,18 +300,13 @@
     </div>
 </div>
 
-<!-- ========================================================= -->
-<!-- ==== MODALS ==== -->
-<!-- ========================================================= -->
 
-<!-- Modal Tambah Admin -->
 <div id="addAdminModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto animate-slide-in">
         <button onclick="closeAddAdminModal()" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-all text-2xl">
             &times;
         </button>
         
-        <!-- Modal Header -->
         <div class="mb-6">
             <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
                 <i class="fa fa-user-plus text-2xl text-white"></i>
@@ -407,14 +392,12 @@
     </div>
 </div>
 
-<!-- Modal Edit Admin -->
 <div id="editAdminModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto animate-slide-in">
         <button onclick="closeEditAdminModal()" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-all text-2xl">
             &times;
         </button>
         
-        <!-- Modal Header -->
         <div class="mb-6">
             <div class="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
                 <i class="fa fa-user-edit text-2xl text-white"></i>
