@@ -33,7 +33,7 @@ Route::middleware(['auth', 'role:ADMIN'])->prefix('admin')->name('admin.')->grou
     Route::put('/pendaftar/{id}/update', [AdminController::class, 'update'])->name('pendaftar.update');
     Route::post('/pendaftar/{id}/approve', [AdminController::class, 'approvePendaftar'])->name('approve');
     Route::delete('/pendaftar/{id}/reject', [AdminController::class, 'rejectPendaftar'])->name('reject');
-    Route::delete('/pendaftar/{id}', [AdminController::class, 'destroy'])->name('delete');
+    Route::delete('/pendaftar/{id}', [AdminController::class, 'destroy'])->name('admin.delete.pendaftar');
     
      Route::post('/pendaftar/store', [AdminController::class, 'storePendaftar'])->name('pendaftar.store');
 
