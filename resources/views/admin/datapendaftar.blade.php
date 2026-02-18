@@ -120,6 +120,7 @@
                         <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">No</th>
                         <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">Username</th>
                         <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">Nama</th>
+                        <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">J.Kelamin</th>
                         <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">NISN</th>
                         <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">Tanggal Lahir</th>
                         <th class="px-4 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap">Alamat</th>
@@ -148,6 +149,7 @@
                           <td class="px-4 py-4 text-sm font-semibold text-gray-900">{{ $index +1 }}</td>
                           <td class="px-4 py-4 text-sm font-medium text-gray-900">{{ $user->username ?? '-' }}</td>
                           <td class="px-4 py-4 text-sm text-gray-700 whitespace-nowrap">{{ $user->nama_pendaftar ?? '-' }}</td>
+                          <td class="px-4 py-4 text-sm text-gray-600 whitespace-nowrap">{{ $user->jenis_kelamin ?? '-' }}</td>
                           <td class="px-4 py-4 text-sm text-gray-600 whitespace-nowrap">{{ $user->nisn_pendaftar ?? '-' }}</td>
                           <td class="px-4 py-4 text-sm text-gray-600 whitespace-nowrap">{{ $user->tanggallahir_pendaftar ?? '-' }}</td>
                           <td class="px-4 py-4 text-sm text-gray-600 max-w-[200px] truncate" title="{{ $user->alamat_pendaftar }}">{{ $user->alamat_pendaftar ?? '-' }}</td>
@@ -186,10 +188,20 @@
                             @endif
                           </td>
                           <td class="px-4 py-4 text-sm text-center">
-                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold
-                              {{ $user->status === 'approved' ? 'bg-green-100 text-green-700 border border-green-200' :
-                                ($user->status === 'rejected' ? 'bg-red-100 text-red-700 border border-red-200' : 'bg-yellow-100 text-yellow-700 border border-yellow-200') }}">
-                              {{ ucfirst($user->status ?? 'pending') }}
+                            @php
+                              $statusLabel = match($user->status ?? 'pending') {
+                                'lolos' => 'Diterima',
+                                'tidak_lolos' => 'Ditolak',
+                                default => 'Menunggu Verifikasi',
+                              };
+                              $statusClass = match($user->status ?? 'pending') {
+                                'lolos' => 'bg-green-100 text-green-700 border border-green-200',
+                                'tidak_lolos' => 'bg-red-100 text-red-700 border border-red-200',
+                                default => 'bg-yellow-100 text-yellow-700 border border-yellow-200',
+                              };
+                            @endphp
+                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold {{ $statusClass }}">
+                              {{ $statusLabel }}
                             </span>
                           </td>
                           <td class="px-4 py-4 text-sm">
@@ -275,6 +287,14 @@
               <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap</label>
                 <input type="text" name="nama_pendaftar" id="editNama" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Jenis Kelamin</label>
+                <select name="jenis_kelamin" id="editJenisKelamin" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
+                  <option value="">Pilih</option>
+                  <option value="Laki-laki">Laki-laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
               </div>
               <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">NISN</label>
@@ -418,6 +438,14 @@
               <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap <span class="text-red-500">*</span></label>
                 <input type="text" name="nama_pendaftar" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all">
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Jenis Kelamin <span class="text-red-500">*</span></label>
+                <select name="jenis_kelamin" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all">
+                  <option value="">Pilih</option>
+                  <option value="Laki-laki">Laki-laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
               </div>
               <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">NISN <span class="text-red-500">*</span></label>

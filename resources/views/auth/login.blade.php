@@ -83,6 +83,14 @@
         <form method="POST" action="{{ route('login') }}" class="space-y-6">
           @csrf
           
+          @if ($errors->any())
+            <div class="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+              @foreach ($errors->all() as $err)
+                <p>{{ $err }}</p>
+              @endforeach
+            </div>
+          @endif
+
           <!-- Username Field -->
           <div>
             <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
@@ -95,9 +103,12 @@
               value="{{ old('username') }}" 
               required 
               autofocus
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition outline-none text-gray-900"
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition outline-none {{ $errors->has('username') ? 'border-red-500' : 'border-gray-300' }} text-gray-900"
               placeholder="Masukkan username Anda"
             >
+            @error('username')
+              <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
           </div>
 
           <!-- Password Field -->
@@ -110,9 +121,12 @@
               type="password" 
               name="password" 
               required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition outline-none text-gray-900"
+              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition outline-none {{ $errors->has('password') ? 'border-red-500' : 'border-gray-300' }} text-gray-900"
               placeholder="Masukkan password Anda"
             >
+            @error('password')
+              <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
           </div>
 
           <!-- Remember Me & Forgot Password -->

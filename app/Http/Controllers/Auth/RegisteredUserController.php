@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use App\Models\PeriodeSeleksi;
@@ -42,7 +43,8 @@ class RegisteredUserController extends Controller
         $user->email = $validated['email'];
         $user->no_hp = $validated['no_hp'];
         $user->password = Hash::make($validated['password']);
-        $user->role = 'PENDAFTAR'; // otomatis pendaftar
+        $user->role = 'PENDAFTAR';
+        $user->status = 'pending'; // Menunggu Verifikasi - admin yang menentukan
 
         // Link ke periode aktif jika ada
         $periodeAktif = PeriodeSeleksi::where('status', 'aktif')->first();
@@ -51,6 +53,33 @@ class RegisteredUserController extends Controller
         }
 
         $user->save();
+
+        // Kirim notifikasi email ke admin
+        $adminEmail = config('app.admin_email');
+        if ($adminEmail) {
+            try {
+                $namaLengkap = $user->nama_pendaftar ?? $user->username;
+                $nisn = $user->nisn_pendaftar ?? '-';
+                $asalSekolah = $user->asal_sekolah ?? '-';
+                $tanggalDaftar = $user->created_at->format('d F Y, H:i');
+
+                Mail::raw(
+                    "Pendaftar Baru PPDB\n\n" .
+                    "Nama lengkap: {$namaLengkap}\n" .
+                    "NISN: {$nisn}\n" .
+                    "Asal sekolah: {$asalSekolah}\n" .
+                    "Tanggal daftar: {$tanggalDaftar}\n" .
+                    "Username: {$user->username}\n" .
+                    "Email: {$user->email}\n",
+                    function ($message) use ($adminEmail) {
+                        $message->to($adminEmail)
+                            ->subject('PPDB - Pendaftar Baru');
+                    }
+                );
+            } catch (\Throwable $e) {
+                Log::warning('Gagal mengirim email notifikasi pendaftar baru: ' . $e->getMessage());
+            }
+        }
 
         return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
     }

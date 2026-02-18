@@ -298,10 +298,15 @@
       @php
         $statusSeleksi = $user->seleksi ? $user->seleksi->status : ($user->status_seleksi ?? 'Belum Diseleksi');
         $statusPendaftaran = $user->status ?? 'pending';
+        $statusPendaftaranDisplay = match($statusPendaftaran) {
+          'lolos' => 'approved',
+          'tidak_lolos' => 'rejected',
+          default => $statusPendaftaran,
+        };
       @endphp
 
       <!-- Notifikasi Penting -->
-      @if($statusPendaftaran === 'rejected')
+      @if($statusPendaftaranDisplay === 'rejected')
         <div class="bg-red-50 border-l-4 border-red-500 rounded-lg p-4 mb-6 animate-fadeIn">
           <div class="flex items-start">
             <i class="fa-solid fa-circle-exclamation text-red-500 text-xl mr-3 mt-0.5"></i>
@@ -311,7 +316,7 @@
             </div>
           </div>
         </div>
-      @elseif($statusPendaftaran === 'approved' && !$user->berkas_locked)
+      @elseif($statusPendaftaranDisplay === 'approved' && !$user->berkas_locked)
         <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4 mb-6 animate-fadeIn">
           <div class="flex items-start">
             <i class="fa-solid fa-info-circle text-blue-500 text-xl mr-3 mt-0.5"></i>
@@ -332,18 +337,18 @@
           </h2>
           <div class="flex items-center gap-2 mb-2">
             <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs md:text-sm font-semibold border
-              {{ $statusPendaftaran === 'approved' ? 'bg-green-100 text-green-700 border-green-400' :
-                 ($statusPendaftaran === 'rejected' ? 'bg-red-100 text-red-700 border-red-400' :
+              {{ $statusPendaftaranDisplay === 'approved' ? 'bg-green-100 text-green-700 border-green-400' :
+                 ($statusPendaftaranDisplay === 'rejected' ? 'bg-red-100 text-red-700 border-red-400' :
                    'bg-yellow-100 text-yellow-700 border-yellow-400') }}">
-              {{ ucfirst($statusPendaftaran) }}
+              {{ $statusPendaftaran === 'lolos' ? 'Diterima' : ($statusPendaftaran === 'tidak_lolos' ? 'Ditolak' : 'Menunggu Verifikasi') }}
             </span>
           </div>
-          @if($statusPendaftaran === 'approved')
+          @if($statusPendaftaranDisplay === 'approved')
             <p class="text-xs text-gray-600 mt-2">
               <i class="fa-solid fa-check-circle text-green-500 mr-1"></i>
               Data Anda telah diverifikasi
             </p>
-          @elseif($statusPendaftaran === 'rejected')
+          @elseif($statusPendaftaranDisplay === 'rejected')
             <p class="text-xs text-red-600 mt-2">
               <i class="fa-solid fa-times-circle text-red-500 mr-1"></i>
               Perlu perbaikan data
@@ -1405,6 +1410,20 @@
               @error('nama_pendaftar') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
             <div>
+              <label class="block font-semibold mb-1">Jenis Kelamin</label>
+              <div class="flex gap-4 mt-2">
+                <label class="flex items-center gap-2 cursor-pointer {{ $user->identitas_locked ? 'opacity-70' : '' }}">
+                  <input type="radio" name="jenis_kelamin" value="Laki-laki" {{ old('jenis_kelamin', $user->jenis_kelamin) === 'Laki-laki' ? 'checked' : '' }} {{ $user->identitas_locked ? 'disabled' : 'required' }} class="rounded-full border-gray-300 text-blue-600 focus:ring-blue-500">
+                  <span>Laki-laki</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer {{ $user->identitas_locked ? 'opacity-70' : '' }}">
+                  <input type="radio" name="jenis_kelamin" value="Perempuan" {{ old('jenis_kelamin', $user->jenis_kelamin) === 'Perempuan' ? 'checked' : '' }} {{ $user->identitas_locked ? 'disabled' : '' }} class="rounded-full border-gray-300 text-blue-600 focus:ring-blue-500">
+                  <span>Perempuan</span>
+                </label>
+              </div>
+              @error('jenis_kelamin') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+            </div>
+            <div>
               <label class="block font-semibold mb-1">Tanggal Lahir</label>
               <input type="date" name="tanggallahir_pendaftar"
                 class="w-full border rounded p-2 {{ $user->identitas_locked ? 'bg-gray-100 cursor-not-allowed' : '' }} @error('tanggallahir_pendaftar') border-red-500 @enderror"
@@ -2161,6 +2180,10 @@
             <div>
               <p class="text-gray-500">Nama Lengkap</p>
               <p class="font-semibold text-gray-800 text-lg">{{ $user->nama_pendaftar ?? '-' }}</p>
+            </div>
+            <div>
+              <p class="text-gray-500">Jenis Kelamin</p>
+              <p class="font-semibold text-gray-800 text-lg">{{ $user->jenis_kelamin ?? '-' }}</p>
             </div>
             <div>
               <p class="text-gray-500">NISN</p>

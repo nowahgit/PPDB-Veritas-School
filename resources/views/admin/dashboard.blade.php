@@ -831,6 +831,7 @@
       .then(data => {
         const fields = {
           'editNama': data.nama_pendaftar,
+          'editJenisKelamin': data.jenis_kelamin,
           'editNISN': data.nisn_pendaftar,
           'editTanggal': data.tanggallahir_pendaftar,
           'editAlamat': data.alamat_pendaftar,

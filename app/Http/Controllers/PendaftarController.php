@@ -37,6 +37,7 @@ class PendaftarController extends Controller
         $request->validate([
             'nisn_pendaftar' => 'required|string|max:20',
             'nama_pendaftar' => 'required|string|max:50',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'tanggallahir_pendaftar' => 'required|date',
             'alamat_pendaftar' => 'required|string',
             'agama' => 'required|string|max:20',
@@ -54,6 +55,7 @@ class PendaftarController extends Controller
         $user->update($request->only([
             'nisn_pendaftar',
             'nama_pendaftar',
+            'jenis_kelamin',
             'tanggallahir_pendaftar',
             'alamat_pendaftar',
             'agama',

@@ -55,7 +55,7 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Invalid user role');
         }
 
-        $pendaftar->status = 'approved';
+        $pendaftar->status = 'lolos';
         $pendaftar->save();
 
         return redirect()->back()->with('success', 'Pendaftar berhasil diterima');
@@ -72,7 +72,7 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Invalid user role');
         }
 
-        $pendaftar->status = 'rejected';
+        $pendaftar->status = 'tidak_lolos';
         $pendaftar->save();
 
         return redirect()->back()->with('success', 'Pendaftar berhasil ditolak');
@@ -106,6 +106,7 @@ class AdminController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
             'nama_pendaftar' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'nisn_pendaftar' => 'required|string|max:20',
             'tanggallahir_pendaftar' => 'required|date',
             'alamat_pendaftar' => 'required|string',
@@ -128,6 +129,7 @@ class AdminController extends Controller
             'role' => 'PENDAFTAR',
             'status' => 'pending',
             'nama_pendaftar' => $request->nama_pendaftar,
+            'jenis_kelamin' => $request->jenis_kelamin,
             'nisn_pendaftar' => $request->nisn_pendaftar,
             'tanggallahir_pendaftar' => $request->tanggallahir_pendaftar,
             'alamat_pendaftar' => $request->alamat_pendaftar,
@@ -280,6 +282,7 @@ class AdminController extends Controller
 
         return response()->json([
             'nama_pendaftar' => $user->nama_pendaftar,
+            'jenis_kelamin' => $user->jenis_kelamin,
             'nisn_pendaftar' => $user->nisn_pendaftar,
             'tanggallahir_pendaftar' => $user->tanggallahir_pendaftar,
             'alamat_pendaftar' => $user->alamat_pendaftar,
@@ -314,8 +317,13 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($id);
 
+        $request->validate([
+            'jenis_kelamin' => 'nullable|in:Laki-laki,Perempuan',
+        ]);
+
         $user->update($request->only([
             'nama_pendaftar',
+            'jenis_kelamin',
             'nisn_pendaftar',
             'tanggallahir_pendaftar',
             'alamat_pendaftar',

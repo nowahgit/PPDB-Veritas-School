@@ -28,6 +28,7 @@ class User extends Authenticatable
         'no_hp',
         'nisn_pendaftar',
         'nama_pendaftar',
+        'jenis_kelamin',
         'tanggallahir_pendaftar',
         'alamat_pendaftar',
         'agama',

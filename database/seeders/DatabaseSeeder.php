@@ -74,6 +74,7 @@ class DatabaseSeeder extends Seeder
                 // DATA SISWA
                 'nisn_pendaftar' => $nisn,
                 'nama_pendaftar' => $nama,
+                'jenis_kelamin' => $faker->randomElement(['Laki-laki', 'Perempuan']),
                 'tanggallahir_pendaftar' => $tgl_lahir,
                 'alamat_pendaftar' => $faker->address(),
                 'agama' => $faker->randomElement($agamaList),

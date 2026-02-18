@@ -45,14 +45,23 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only($this->username(), 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+        $user = \App\Models\User::where($this->username(), $this->input($this->username()))->first();
 
+        if (! $user) {
+            RateLimiter::hit($this->throttleKey());
             throw ValidationException::withMessages([
-                $this->username() => __('Username atau password salah.'),
+                $this->username() => 'Username tidak terdaftar.',
             ]);
         }
 
+        if (! \Illuminate\Support\Facades\Hash::check($this->input('password'), $user->password)) {
+            RateLimiter::hit($this->throttleKey());
+            throw ValidationException::withMessages([
+                'password' => 'Password salah.',
+            ]);
+        }
+
+        Auth::login($user, $this->boolean('remember'));
         RateLimiter::clear($this->throttleKey());
     }
 

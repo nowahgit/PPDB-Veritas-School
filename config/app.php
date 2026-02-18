@@ -99,6 +99,8 @@ return [
 
     'key' => env('APP_KEY'),
 
+    'admin_email' => env('PPDB_ADMIN_EMAIL', env('MAIL_FROM_ADDRESS', 'admin@example.com')),
+
     'previous_keys' => [
         ...array_filter(
             explode(',', (string) env('APP_PREVIOUS_KEYS', ''))
