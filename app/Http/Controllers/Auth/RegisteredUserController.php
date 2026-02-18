@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\PeriodeSeleksi;
 
 class RegisteredUserController extends Controller
 {
@@ -42,6 +43,13 @@ class RegisteredUserController extends Controller
         $user->no_hp = $validated['no_hp'];
         $user->password = Hash::make($validated['password']);
         $user->role = 'PENDAFTAR'; // otomatis pendaftar
+
+        // Link ke periode aktif jika ada
+        $periodeAktif = PeriodeSeleksi::where('status', 'aktif')->first();
+        if ($periodeAktif) {
+            $user->periode_id = $periodeAktif->id;
+        }
+
         $user->save();
 
         return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');

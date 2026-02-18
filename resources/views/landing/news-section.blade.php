@@ -1,131 +1,132 @@
-<section class="bg-white py-12">
-  <div class="container mx-auto px-6">
-    <div class="text-center mb-10">
-      <h2 class="text-5xl font-bold font-gabarito text-blue-600"><span class="font-dmserif">Berita Terbaru </span>Veritas School</h2>
-      <p class="text-gray-600 mt-2 font-hubot">Pantau terus informasi dan kegiatan terbaru di Veritas School</p>
+<section id="news" class="py-24 bg-white relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-20 space-y-4">
+      <span class="text-[10px] font-bold text-blue-600 uppercase tracking-[0.4em]">Warta Veritas</span>
+      <h2 class="font-gabarito text-4xl md:text-5xl font-bold text-slate-900 leading-tight">Berita & Artikel</h2>
+      <p class="font-hubot text-slate-500 font-medium leading-relaxed">Update terbaru mengenai prestasi, kegiatan, dan
+        pengumuman resmi dari Veritas School.</p>
     </div>
 
-    <div id="news-grid" class="grid md:grid-cols-3 gap-8">
-      <!-- News Item 1 -->
-      <div class="news-item cursor-pointer bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300" data-index="0">
-        <img src="https://images.pexels.com/photos/4145193/pexels-photo-4145193.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Berita 1" class="w-full h-48 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-gray-800 mb-2 font-gabarito">Kegiatan Ekstrakurikuler Baru</h3>
-          <p class="text-gray-600 text-sm mb-4 font-hubot">Siswa Veritas School mengikuti berbagai ekstrakurikuler untuk mengembangkan bakat dan kreativitas.</p>
-        </div>
-      </div>
-
-      <!-- News Item 2 -->
-      <div class="news-item cursor-pointer bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300" data-index="1">
-        <img src="https://images.pexels.com/photos/4145793/pexels-photo-4145793.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Berita 2" class="w-full h-48 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-gray-800 mb-2 font-gabarito">Pentas Seni Tahunan</h3>
-          <p class="text-gray-600 text-sm mb-4 font-hubot">Siswa menampilkan karya seni mereka dalam acara pentas seni tahunan Veritas School.</p>
-        </div>
-      </div>
-
-      <!-- News Item 3 -->
-      <div class="news-item cursor-pointer bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300" data-index="2">
-        <img src="https://images.pexels.com/photos/4145232/pexels-photo-4145232.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Berita 3" class="w-full h-48 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-gray-800 mb-2 font-gabarito">Workshop Pendidikan Digital</h3>
-          <p class="text-gray-600 text-sm mb-4 font-hubot">Guru dan siswa belajar teknologi terbaru dalam workshop pendidikan digital untuk inovasi belajar.</p>
-        </div>
-      </div>
-
-      <!-- News Item 4 -->
-      <div class="news-item cursor-pointer hidden bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300" data-index="3">
-        <img src="https://images.pexels.com/photos/4145197/pexels-photo-4145197.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Berita 4" class="w-full h-48 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-gray-800 mb-2 font-gabarito">Lomba Sains Antar Kelas</h3>
-          <p class="text-gray-600 text-sm mb-4 font-hubot">Siswa menunjukkan kemampuan mereka dalam lomba sains antar kelas yang seru dan edukatif.</p>
-        </div>
-      </div>
-
-      <!-- News Item 5 -->
-      <div class="news-item cursor-pointer hidden bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300" data-index="4">
-        <img src="https://images.pexels.com/photos/4145199/pexels-photo-4145199.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Berita 5" class="w-full h-48 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-gray-800 mb-2 font-gabarito">Kunjungan Edukasi</h3>
-          <p class="text-gray-600 text-sm mb-4 font-hubot">Siswa melakukan kunjungan edukasi ke museum untuk memperluas wawasan dan pengalaman belajar.</p>
-        </div>
-      </div>
+    <!-- News Grid -->
+    <div id="news-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 relative z-10">
+      <!-- Generated via JS -->
     </div>
 
-    <div class="text-center mt-8">
-      <button id="show-more" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300 font-hubot">
+    <div class="text-center" id="load-more-container">
+      <button id="show-more"
+        class="px-8 py-4 bg-slate-50 text-slate-700 border border-slate-200 rounded-xl font-bold text-sm hover:bg-slate-100 transition-all flex items-center justify-center gap-2 mx-auto">
         Lihat Selengkapnya
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+        </svg>
       </button>
     </div>
   </div>
 </section>
 
 <!-- Modal -->
-<div id="news-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-  <div class="bg-white rounded-xl max-w-xl w-full overflow-hidden relative">
-    <button id="modal-close" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button>
-    <img id="modal-img" src="" alt="Berita" class="w-full h-64 object-cover">
-    <div class="p-6">
-      <h3 id="modal-title" class="font-gabarito text-2xl font-semibold mb-3"></h3>
-      <p id="modal-desc" class="font-hubot text-gray-700 mb-6"></p>
-      <div class="flex justify-between">
-        <button id="prev-btn" class="font-hubot px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Sebelumnya</button>
-        <button id="next-btn" class="font-hubot px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Selanjutnya</button>
+<div id="news-modal"
+  class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center z-[100] p-4">
+  <div class="bg-white rounded-[2rem] max-w-2xl w-full overflow-hidden relative shadow-2xl">
+    <button id="modal-close"
+      class="absolute top-6 right-6 z-20 w-10 h-10 bg-white border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <div class="h-64 sm:h-80 overflow-hidden">
+      <img id="modal-img" src="" alt="News" class="w-full h-full object-cover">
+    </div>
+
+    <div class="p-8 sm:p-12 space-y-6">
+      <div class="flex items-center gap-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+        <span id="modal-category" class="text-blue-600"></span>
+        <span>•</span>
+        <span id="modal-date"></span>
       </div>
+
+      <h3 id="modal-title" class="font-gabarito text-2xl font-bold text-slate-900 leading-tight"></h3>
+      <p id="modal-desc" class="font-hubot text-slate-600 leading-relaxed text-sm max-h-48 overflow-y-auto"></p>
     </div>
   </div>
 </div>
 
 <script>
-const showMoreBtn = document.getElementById('show-more');
-const hiddenNews = document.querySelectorAll('.news-item.hidden');
-const newsItems = document.querySelectorAll('.news-item');
-const modal = document.getElementById('news-modal');
-const modalImg = document.getElementById('modal-img');
-const modalTitle = document.getElementById('modal-title');
-const modalDesc = document.getElementById('modal-desc');
-const modalClose = document.getElementById('modal-close');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
+  (function () {
+    const newsData = [
+      {
+        img: "https://images.pexels.com/photos/4145193/pexels-photo-4145193.jpeg?auto=compress&cs=tinysrgb&w=800",
+        category: "Ekstrakurikuler",
+        title: "Pengenalan Ekstrakurikuler Baru: Coding & AI Foundations",
+        desc: "Veritas School meluncurkan program ekstrakurikuler baru yang berfokus pada teknologi masa depan. Siswa akan belajar dasar-dasar pemrograman dan logika kecerdasan buatan dalam lingkungan yang interaktif dan menyenangkan.",
+        date: "28 Jan 2026"
+      },
+      {
+        img: "https://images.pexels.com/photos/4145793/pexels-photo-4145793.jpeg?auto=compress&cs=tinysrgb&w=800",
+        category: "Prestasi",
+        title: "Siswa Veritas Menjuarai Olimpiade Sains Nasional",
+        desc: "Kebanggaan bagi Veritas School atas pencapaian tim sains kami yang berhasil meraih medali emas pada ajang nasional tahun ini. Prestasi ini merupakan buah dari kerja keras dan bimbingan intensif tim pengajar kami.",
+        date: "20 Jan 2026"
+      },
+      {
+        img: "https://images.pexels.com/photos/4145232/pexels-photo-4145232.jpeg?auto=compress&cs=tinysrgb&w=800",
+        category: "Kunjungan",
+        title: "Field Trip Edukatif: Eksplorasi Ekosistem Pesisir",
+        desc: "Dalam rangka mata pelajaran Geografi dan Biologi, siswa kelas X melakukan kunjungan lapangan ke pesisir pantai untuk mempelajari ekosistem secara langsung. Kegiatan ini melatih kepekaan siswa terhadap lingkungan hidup.",
+        date: "15 Jan 2026"
+      }
+    ];
 
-let currentIndex = 0;
+    const grid = document.getElementById('news-grid');
+    const modal = document.getElementById('news-modal');
+    const mImg = document.getElementById('modal-img');
+    const mTitle = document.getElementById('modal-title');
+    const mDesc = document.getElementById('modal-desc');
+    const mCat = document.getElementById('modal-category');
+    const mDate = document.getElementById('modal-date');
+    const mClose = document.getElementById('modal-close');
 
-// Show hidden news
-showMoreBtn.addEventListener('click', () => {
-  hiddenNews.forEach(item => item.classList.remove('hidden'));
-  showMoreBtn.style.display = 'none';
-});
+    function render() {
+      grid.innerHTML = '';
+      newsData.forEach((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'group cursor-pointer space-y-6';
+        card.innerHTML = `
+        <div class="h-64 rounded-3xl overflow-hidden shadow-sm">
+          <img src="${item.img}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+            <span class="text-blue-600">${item.category}</span>
+            <span>${item.date}</span>
+          </div>
+          <h3 class="font-gabarito text-xl font-bold text-slate-900 leading-tight group-hover:text-blue-600 transition-colors">${item.title}</h3>
+          <p class="font-hubot text-sm text-slate-500 leading-relaxed line-clamp-2">${item.desc}</p>
+        </div>
+      `;
+        card.onclick = () => {
+          mImg.src = item.img;
+          mTitle.innerText = item.title;
+          mDesc.innerText = item.desc;
+          mCat.innerText = item.category;
+          mDate.innerText = item.date;
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+          document.body.style.overflow = 'hidden';
+        };
+        grid.appendChild(card);
+      });
+    }
 
-// Open modal
-newsItems.forEach(item => {
-  item.addEventListener('click', () => {
-    currentIndex = parseInt(item.dataset.index);
-    openModal(currentIndex);
-  });
-});
+    mClose.onclick = () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = 'auto';
+    };
 
-function openModal(index){
-  const item = newsItems[index];
-  modalImg.src = item.querySelector('img').src;
-  modalTitle.textContent = item.querySelector('h3').textContent;
-  modalDesc.textContent = item.querySelector('p').textContent;
-  modal.classList.remove('hidden');
-  modal.classList.add('flex');
-}
+    modal.onclick = (e) => { if (e.target === modal) mClose.onclick(); };
 
-// Close modal
-modalClose.addEventListener('click', () => {
-  modal.classList.remove('flex');
-  modal.classList.add('hidden');
-});
-
-// Navigate
-prevBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + newsItems.length) % newsItems.length;
-  openModal(currentIndex);
-});
-nextBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % newsItems.length;
-  openModal(currentIndex);
-});
+    render();
+  })();
 </script>

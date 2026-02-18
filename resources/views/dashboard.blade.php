@@ -8,13 +8,13 @@
         <!-- Total Pendaftar -->
         <div class="bg-blue-500 text-white rounded-2xl p-6 shadow-lg">
             <h2 class="text-xl font-semibold">Total Pendaftar</h2>
-            <p class="text-4xl font-bold">{{ $total_pendaftar }}</p>
+            <p class="text-4xl font-bold">{{ $total_pendaftar ?? 0 }}</p>
         </div>
 
         <!-- Total Panitia -->
         <div class="bg-green-500 text-white rounded-2xl p-6 shadow-lg">
             <h2 class="text-xl font-semibold">Total Panitia</h2>
-            <p class="text-4xl font-bold">{{ $total_panitia }}</p>
+            <p class="text-4xl font-bold">{{ $total_panitia ?? 0 }}</p>
         </div>
     </div>
 </div>

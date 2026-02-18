@@ -12,7 +12,7 @@
 
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f5f5f5;
+      background-color: #ffffff;
       color: #1a1a1a;
       line-height: 1.6;
     }
@@ -20,11 +20,16 @@
     .page {
       width: 210mm;
       min-height: 297mm;
-      margin: 20px auto;
+      margin: 0 auto;
       background: white;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 0;
       page-break-after: always;
       position: relative;
+    }
+
+    @media print {
+      body { background: white !important; }
+      .page { margin: 0; box-shadow: none; }
     }
 
     /* Header dengan garis biru */

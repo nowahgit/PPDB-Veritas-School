@@ -125,9 +125,7 @@
               >
               <span class="ml-2">Ingat saya</span>
             </label>
-            <a href="#" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition">
-              Lupa password?
-            </a>
+           
           </div>
 
           <!-- Login Button -->

@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::table('users', function (Blueprint $table) {
             // ✅ Cek dulu apakah kolom sudah ada, supaya tidak error duplikat
             if (!Schema::hasColumn('users', 'status')) {
-                $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+                $table->enum('status', ['pending', 'lolos', 'tidak_lolos'])->default('pending');
             }
         });
     }

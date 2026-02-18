@@ -237,19 +237,26 @@
                             <span class="text-lg font-bold text-indigo-600">{{ $nilaiTotal }}</span>
                         </td>
                         <td class="px-4 py-3 text-center">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
-                                {{ $user->status_seleksi === 'Lulus' ? 'bg-green-100 text-green-800' : 
-                                   ($user->status_seleksi === 'Tidak Lulus' ? 'bg-red-100 text-red-800' : 
-                                   'bg-gray-100 text-gray-800') }}">
-                                @if($user->status_seleksi === 'Lulus')
-                                    <i class="fas fa-check-circle mr-1"></i>
-                                @elseif($user->status_seleksi === 'Tidak Lulus')
-                                    <i class="fas fa-times-circle mr-1"></i>
-                                @else
-                                    <i class="fas fa-clock mr-1"></i>
-                                @endif
-                                {{ $user->status_seleksi }}
-                            </span>
+                            @php
+  $status = optional($user->seleksi)->status ?? 'Belum Diseleksi';
+@endphp
+
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
+    {{ $status === 'Lulus' ? 'bg-green-100 text-green-800' : 
+       ($status === 'Tidak Lulus' ? 'bg-red-100 text-red-800' : 
+       'bg-gray-100 text-gray-800') }}">
+    
+    @if($status === 'Lulus')
+        <i class="fas fa-check-circle mr-1"></i>
+    @elseif($status === 'Tidak Lulus')
+        <i class="fas fa-times-circle mr-1"></i>
+    @else
+        <i class="fas fa-clock mr-1"></i>
+    @endif
+    
+    {{ $status }}
+</span>
+
                         </td>
                         <td class="px-4 py-3 text-center">
                             <button onclick="openStatusModal({{ $user->id }}, '{{ $user->nama_pendaftar }}', '{{ $user->status_seleksi }}')" 

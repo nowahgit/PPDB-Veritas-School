@@ -1,21 +1,33 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\BerkasController;
 use App\Http\Controllers\SeleksiController;
 use App\Http\Controllers\PeriodeSeleksiController;
+use App\Http\Controllers\FileController;
 
 
 
 Route::get('/', [PeriodeSeleksiController::class, 'index'])->name('landing');
 
+// Route untuk serve file dari storage (fallback jika symlink gagal)
+Route::get('/file/{path}', [FileController::class, 'show'])->name('file.show')->where('path', '.*');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $user = Auth::user();
+        if ($user->role === 'ADMIN') {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->role === 'PENDAFTAR') {
+            return redirect()->route('pendaftar.dashboard');
+        }
+        // Fallback jika role tidak dikenali
+        return redirect()->route('admin.dashboard');
     })->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -26,42 +38,45 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'role:ADMIN'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-    
-    
+
+
     Route::get('/pendaftar/{id}/edit', [AdminController::class, 'editJson'])->name('pendaftar.editJson');
     Route::get('/pendaftar/{id}/berkas', [AdminController::class, 'getBerkas'])->name('pendaftar.berkas');
     Route::put('/pendaftar/{id}/update', [AdminController::class, 'update'])->name('pendaftar.update');
     Route::post('/pendaftar/{id}/approve', [AdminController::class, 'approvePendaftar'])->name('approve');
     Route::delete('/pendaftar/{id}/reject', [AdminController::class, 'rejectPendaftar'])->name('reject');
-    Route::delete('/pendaftar/{id}', [AdminController::class, 'destroy'])->name('admin.delete.pendaftar');
+    Route::delete('/pendaftar/{id}', [AdminController::class, 'destroy'])->name('pendaftar.delete');
     
      Route::post('/pendaftar/store', [AdminController::class, 'storePendaftar'])->name('pendaftar.store');
 
-    
+
     Route::put('/profile', [AdminController::class, 'updateProfile'])->name('updateProfile');
     Route::post('/password', [AdminController::class, 'updatePassword'])->name('updatePassword');
-    
-    
 
-Route::post('/store', [AdminController::class, 'store'])->name('store');
-Route::get('/edit/{id}', [AdminController::class, 'editAdmin'])->name('edit');
-Route::put('/admin/{id}/update', [AdminController::class, 'updateAdmin'])->name('updateAdmin'); 
-Route::delete('/delete/{id}', [AdminController::class, 'destroyAdmin'])->name('delete'); 
 
-    
+
+    Route::post('/store', [AdminController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [AdminController::class, 'editAdmin'])->name('edit');
+    Route::put('/admin/{id}/update', [AdminController::class, 'updateAdmin'])->name('updateAdmin');
+    Route::delete('/delete/{id}', [AdminController::class, 'destroyAdmin'])->name('delete');
+
+
     Route::post('/periode', [PeriodeSeleksiController::class, 'store'])->name('periode.store');
     Route::put('/periode/{id}', [PeriodeSeleksiController::class, 'update'])->name('periode.update');
     Route::delete('/periode/{id}', [PeriodeSeleksiController::class, 'destroy'])->name('periode.destroy');
     Route::post('/periode/{id}/activate', [PeriodeSeleksiController::class, 'activate'])->name('periode.activate');
-    
-    
+    Route::post('/periode/{id}/close', [PeriodeSeleksiController::class, 'close'])
+        ->name('periode.close');
+
+
+
     Route::prefix('seleksi')->name('seleksi.')->group(function () {
         Route::get('/', [SeleksiController::class, 'index'])->name('index');
         Route::post('/proses-otomatis', [SeleksiController::class, 'prosesSeleksiOtomatis'])->name('proses');
-        
-        
+
+
         Route::match(['POST', 'PUT'], '/{id}/update-status', [SeleksiController::class, 'updateStatus'])->name('updateStatus');
-        
+
         Route::get('/export-pdf', [SeleksiController::class, 'exportPdf'])->name('pdf');
         Route::post('/reset', [SeleksiController::class, 'resetSeleksi'])->name('reset');
     });

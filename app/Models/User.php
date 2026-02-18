@@ -7,6 +7,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Prestasi;
 use App\Models\Berkas;
+use App\Models\Seleksi; // pastikan ada di atas
+
+
 
 class User extends Authenticatable
 {
@@ -40,18 +43,18 @@ class User extends Authenticatable
         'nilai_smt4',
         'nilai_smt5',
         'rata_rata',          // TAMBAHKAN
-    'poin_prestasi',      // TAMBAHKAN
-    'nilai_total',        // TAMBAHKAN
+        'poin_prestasi',      // TAMBAHKAN
+        'nilai_total',        // TAMBAHKAN
         'berkas_approved',       // BARU
         'prestasi_approved',     // BARU
         'status',                // BARU
         'identitas_locked',
-    'identitas_submitted_at',
-     'berkas_locked',           // TAMBAHKAN
-    'berkas_submitted_at',     // TAMBAHKAN
-    'prestasi_locked',         // TAMBAHKAN
-    'prestasi_submitted_at',   // TAMBAHKAN 
-    'periode_id'
+        'identitas_submitted_at',
+        'berkas_locked',           // TAMBAHKAN
+        'berkas_submitted_at',     // TAMBAHKAN
+        'prestasi_locked',         // TAMBAHKAN
+        'prestasi_submitted_at',   // TAMBAHKAN 
+        'periode_id'
     ];
 
     /**
@@ -77,24 +80,24 @@ class User extends Authenticatable
             'berkas_approved' => 'boolean',
             'prestasi_approved' => 'boolean',
             'identitas_locked' => 'boolean',
-        'identitas_submitted_at' => 'datetime',
-        'berkas_locked' => 'boolean',        // TAMBAHKAN
-        'berkas_submitted_at' => 'datetime', // TAMBAHKAN
-        'prestasi_locked' => 'boolean',      // TAMBAHKAN
-        'prestasi_submitted_at' => 'datetime', // TAMBAHKAN,
+            'identitas_submitted_at' => 'datetime',
+            'berkas_locked' => 'boolean',        // TAMBAHKAN
+            'berkas_submitted_at' => 'datetime', // TAMBAHKAN
+            'prestasi_locked' => 'boolean',      // TAMBAHKAN
+            'prestasi_submitted_at' => 'datetime', // TAMBAHKAN,
             // JANGAN tambahkan 'password' => 'hashed' di sini!
         ];
     }
 
-public function periode()
-{
-    return $this->belongsTo(PeriodeSeleksi::class, 'periode_id');
-}
+    public function periode()
+    {
+        return $this->belongsTo(PeriodeSeleksi::class, 'periode_id');
+    }
 
-public function admin()
-{
-    return $this->hasOne(Admin::class, 'user_id');
-}
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'user_id');
+    }
 
 
     /**
@@ -126,13 +129,15 @@ public function admin()
      */
     public function getAverageScore(): float
     {
-        if (!$this->nilai_smt1 || !$this->nilai_smt2 || !$this->nilai_smt3 || 
-            !$this->nilai_smt4 || !$this->nilai_smt5) {
+        if (
+            !$this->nilai_smt1 || !$this->nilai_smt2 || !$this->nilai_smt3 ||
+            !$this->nilai_smt4 || !$this->nilai_smt5
+        ) {
             return 0;
         }
 
-        return round(($this->nilai_smt1 + $this->nilai_smt2 + $this->nilai_smt3 + 
-                     $this->nilai_smt4 + $this->nilai_smt5) / 5, 2);
+        return round(($this->nilai_smt1 + $this->nilai_smt2 + $this->nilai_smt3 +
+            $this->nilai_smt4 + $this->nilai_smt5) / 5, 2);
     }
 
     /**
@@ -145,8 +150,8 @@ public function admin()
         }
 
         $level = strtolower($this->prestasi_level ?? '');
-        
-        return match($level) {
+
+        return match ($level) {
             'internasional' => $bonusSettings['internasional'] ?? 10,
             'nasional' => $bonusSettings['nasional'] ?? 7,
             'provinsi' => $bonusSettings['provinsi'] ?? 5,
@@ -195,14 +200,19 @@ public function admin()
     {
         return $query->where('prestasi_approved', true);
     }
-public function berkas()
-{
-    return $this->hasMany(Berkas::class);
-}
+    public function berkas()
+    {
+        return $this->hasOne(Berkas::class);
+    }
 
-public function adminData()
-{
-    return $this->hasOne(\App\Models\Admin::class, 'user_id', 'id');
-}
+    public function adminData()
+    {
+        return $this->hasOne(\App\Models\Admin::class, 'user_id', 'id');
+    }
+
+    public function seleksi()
+    {
+        return $this->hasOne(Seleksi::class, 'user_id', 'id');
+    }
 
 }

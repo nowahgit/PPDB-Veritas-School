@@ -1,123 +1,103 @@
-<!-- Testimoni Section -->
-<section id="testimoni" class="py-20 bg-white relative">
+<section id="testimoni" class="py-24 bg-slate-50 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <h2 class="font-dmserif text-5xl font-bold text-blue-600 mb-4"><span class="italic">Testimoni </span><span class="font-gabarito" >Alumni & Orang Tua</span></h2>
-            <p class="text-xl font-hubot text-gray-600">Dengar pengalaman mereka yang telah bergabung</p>
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+            <div class="space-y-4 max-w-2xl text-center md:text-left">
+                <span class="text-[10px] font-bold text-blue-600 uppercase tracking-[0.4em]">Suara Komunitas</span>
+                <h2 class="font-gabarito text-4xl md:text-5xl font-bold text-slate-900 leading-tight tracking-tight">Apa
+                    Kata Mereka Tentang <span class="text-blue-600">Veritas?</span></h2>
+            </div>
+            <div class="flex gap-4 mb-4">
+                <!-- Optional Navigation Arrows could go here if using a real slider, but keeping it clean for now -->
+            </div>
         </div>
 
-        <!-- Container auto-scroll dengan gradient -->
-        <div class="relative overflow-hidden">
-            <!-- Gradient di kiri & kanan -->
-            <div class="absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-            <div class="absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
-
-            <!-- Wrapper scroll -->
-            <div class="flex font-hubot space-x-6 animate-scroll">
-                <!-- Testimoni 1 -->
-                <div class="flex-none bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 shadow-lg w-80">
-                    <div class="flex items-center mb-4">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ahmad Fauzi" class="w-12 h-12 rounded-full object-cover">
-                        <div class="ml-4">
-                            <h4 class="font-bold text-gray-900">Ahmad Fauzi</h4>
-                            <p class="text-gray-600 text-sm">Alumni 2023 - UI</p>
-                        </div>
+        <!-- Testimonial Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Item 1 -->
+            <div
+                class="bg-white p-10 rounded-[2.5rem] border border-slate-100 flex flex-col justify-between hover:shadow-xl transition-all h-full">
+                <div class="space-y-6">
+                    <div class="flex gap-1 text-yellow-400">
+                        @for ($i = 0; $i < 5; $i++)
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        @endfor
                     </div>
-                    <div class="text-yellow-500 mb-4">★★★★★</div>
-                    <p class="text-gray-700 italic">
-                        "Sekolah ini benar-benar mempersiapkan saya untuk dunia perkuliahan..."
+                    <p class="font-hubot text-slate-600 font-medium leading-[1.8] italic">
+                        "Sistem pembelajaran di Veritas School sangat mendorong kreativitas. Saya tidak hanya belajar
+                        teori, tapi juga bagaimana bekerjasama dalam tim dan memecahkan masalah nyata."
                     </p>
                 </div>
-
-                <!-- Testimoni 2 -->
-                <div class="flex-none bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 shadow-lg w-80">
-                    <div class="flex items-center mb-4">
-                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Siti Nurhaliza" class="w-12 h-12 rounded-full object-cover">
-                        <div class="ml-4">
-                            <h4 class="font-bold text-gray-900">Siti Nurhaliza</h4>
-                            <p class="text-gray-600 text-sm">Orang Tua Siswa</p>
-                        </div>
+                <div class="flex items-center gap-4 mt-8 pt-8 border-t border-slate-50">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-slate-900 flex items-center justify-center text-white font-bold">
+                        AF</div>
+                    <div>
+                        <h4 class="font-gabarito font-bold text-slate-900 leading-none">Ahmad Fauzan</h4>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Alumni 2023</p>
                     </div>
-                    <div class="text-yellow-500 mb-4">★★★★★</div>
-                    <p class="text-gray-700 italic">
-                        "Sebagai orang tua, saya sangat puas dengan perkembangan anak saya..."
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div
+                class="bg-white p-10 rounded-[2.5rem] border border-slate-100 flex flex-col justify-between hover:shadow-xl transition-all h-full">
+                <div class="space-y-6">
+                    <div class="flex gap-1 text-yellow-400">
+                        @for ($i = 0; $i < 5; $i++)
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        @endfor
+                    </div>
+                    <p class="font-hubot text-slate-600 font-medium leading-[1.8] italic">
+                        "Kami melihat perkembangan signifikan pada kedisiplinan dan sopan santun anak kami sejak
+                        bergabung. Veritas benar-benar menanamkan nilai karakter yang kuat."
                     </p>
                 </div>
-
-                <!-- Testimoni 3 -->
-                <div class="flex-none bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 shadow-lg w-80">
-                    <div class="flex items-center mb-4">
-                        <img src="https://randomuser.me/api/portraits/men/56.jpg" alt="Budi Santoso" class="w-12 h-12 rounded-full object-cover">
-                        <div class="ml-4">
-                            <h4 class="font-bold text-gray-900">Budi Santoso</h4>
-                            <p class="text-gray-600 text-sm">Alumni 2022 - ITB</p>
-                        </div>
+                <div class="flex items-center gap-4 mt-8 pt-8 border-t border-slate-50">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-bold">
+                        SM</div>
+                    <div>
+                        <h4 class="font-gabarito font-bold text-slate-900 leading-none">Ibu Sarah</h4>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Orang Tua Siswa
+                        </p>
                     </div>
-                    <div class="text-yellow-500 mb-4">★★★★★</div>
-                    <p class="text-gray-700 italic">
-                        "Pengalaman belajar yang luar biasa, guru-gurunya sangat mendukung..."
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div
+                class="bg-white p-10 rounded-[2.5rem] border border-slate-100 flex flex-col justify-between hover:shadow-xl transition-all h-full">
+                <div class="space-y-6">
+                    <div class="flex gap-1 text-yellow-400">
+                        @for ($i = 0; $i < 5; $i++)
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        @endfor
+                    </div>
+                    <p class="font-hubot text-slate-600 font-medium leading-[1.8] italic">
+                        "Fasilitas laboratorium dan perpustakaannya luar biasa. Belajar sains jadi jauh lebih
+                        menyenangkan kalau kita bisa langsung praktek dengan alat yang lengkap."
                     </p>
                 </div>
-
-                <!-- Testimoni 4 -->
-                <div class="flex-none bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 shadow-lg w-80">
-                    <div class="flex items-center mb-4">
-                        <img src="https://randomuser.me/api/portraits/women/67.jpg" alt="Mira Lestari" class="w-12 h-12 rounded-full object-cover">
-                        <div class="ml-4">
-                            <h4 class="font-bold text-gray-900">Mira Lestari</h4>
-                            <p class="text-gray-600 text-sm">Orang Tua Siswa</p>
-                        </div>
+                <div class="flex items-center gap-4 mt-8 pt-8 border-t border-slate-50">
+                    <div
+                        class="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-bold">
+                        KS</div>
+                    <div>
+                        <h4 class="font-gabarito font-bold text-slate-900 leading-none">Kevin Sanjaya</h4>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Siswa Aktif</p>
                     </div>
-                    <div class="text-yellow-500 mb-4">★★★★★</div>
-                    <p class="text-gray-700 italic">
-                        "Sekolah ini membuat anak saya lebih percaya diri dan berprestasi..."
-                    </p>
-                </div>
-
-                <!-- Testimoni 5 -->
-                <div class="flex-none bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 shadow-lg w-80">
-                    <div class="flex items-center mb-4">
-                        <img src="https://randomuser.me/api/portraits/men/78.jpg" alt="Riko Pratama" class="w-12 h-12 rounded-full object-cover">
-                        <div class="ml-4">
-                            <h4 class="font-bold text-gray-900">Riko Pratama</h4>
-                            <p class="text-gray-600 text-sm">Alumni 2021 - ITB</p>
-                        </div>
-                    </div>
-                    <div class="text-yellow-500 mb-4">★★★★★</div>
-                    <p class="text-gray-700 italic">
-                        "Materi dan bimbingan yang diberikan mempermudah saya meraih target kuliah..."
-                    </p>
-                </div>
-
-                <!-- Testimoni 6 -->
-                <div class="flex-none bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 shadow-lg w-80">
-                    <div class="flex items-center mb-4">
-                        <img src="https://randomuser.me/api/portraits/women/88.jpg" alt="Dewi Anggraini" class="w-12 h-12 rounded-full object-cover">
-                        <div class="ml-4">
-                            <h4 class="font-bold text-gray-900">Dewi Anggraini</h4>
-                            <p class="text-gray-600 text-sm">Orang Tua Siswa</p>
-                        </div>
-                    </div>
-                    <div class="text-yellow-500 mb-4">★★★★★</div>
-                    <p class="text-gray-700 italic">
-                        "Sangat merekomendasikan sekolah ini, anak saya berkembang pesat dalam akademik..."
-                    </p>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<style>
-/* Auto scroll horizontal */
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.animate-scroll {
-  display: flex;
-  gap: 1.5rem;
-  animation: scroll 30s linear infinite;
-}
-</style>

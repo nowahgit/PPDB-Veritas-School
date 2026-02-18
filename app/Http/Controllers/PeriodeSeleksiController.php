@@ -12,10 +12,10 @@ class PeriodeSeleksiController extends Controller
      * Store a newly created periode in storage.
      */
     public function index()
-{
-    $periodeAktif = PeriodeSeleksi::where('status', 'aktif')->first();
-    return view('welcome', compact('periodeAktif')); // view landing page
-}
+    {
+        $periodeAktif = PeriodeSeleksi::where('status', 'aktif')->first();
+        return view('welcome', compact('periodeAktif')); // view landing page
+    }
 
     public function store(Request $request)
     {
@@ -114,7 +114,7 @@ class PeriodeSeleksiController extends Controller
     {
         try {
             $periode = PeriodeSeleksi::findOrFail($id);
-            
+
             // Cek apakah periode sedang aktif
             if ($periode->status === 'aktif') {
                 return redirect()->back()->with('error', 'Tidak dapat menghapus periode yang sedang aktif!');
@@ -141,7 +141,7 @@ class PeriodeSeleksiController extends Controller
         try {
             // Nonaktifkan semua periode lain
             PeriodeSeleksi::where('status', 'aktif')->update(['status' => 'selesai']);
-            
+
             // Aktifkan periode yang dipilih
             $periode = PeriodeSeleksi::findOrFail($id);
             $periode->update(['status' => 'aktif']);
@@ -151,4 +151,25 @@ class PeriodeSeleksiController extends Controller
             return redirect()->back()->with('error', 'Gagal mengaktifkan periode: ' . $e->getMessage());
         }
     }
+
+    public function close($id)
+    {
+        try {
+            $periode = PeriodeSeleksi::findOrFail($id);
+
+            if ($periode->status !== 'aktif') {
+                return back()->with('error', 'Hanya periode aktif yang bisa ditutup');
+            }
+
+            $periode->update([
+                'status' => 'selesai',
+                'tanggal_selesai' => now() // optional, kalau mau auto close date
+            ]);
+
+            return back()->with('success', 'Periode berhasil ditutup');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal menutup periode: ' . $e->getMessage());
+        }
+    }
+
 }
