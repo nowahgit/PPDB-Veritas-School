@@ -1,20 +1,19 @@
 <section id="news" class="py-24 bg-white relative">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center max-w-2xl mx-auto mb-20 space-y-4">
-      <span class="text-[10px] font-bold text-blue-600 uppercase tracking-[0.4em]">Warta Veritas</span>
-      <h2 class="font-gabarito text-4xl md:text-5xl font-bold text-slate-900 leading-tight">Berita & Artikel</h2>
-      <p class="font-hubot text-slate-500 font-medium leading-relaxed">Update terbaru mengenai prestasi, kegiatan, dan
-        pengumuman resmi dari Veritas School.</p>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <h2 class="text-xs font-bold text-brand-600 uppercase tracking-widest mb-3">Warta Veritas</h2>
+      <h3 class="text-3xl md:text-4xl font-black text-gray-900">Berita & Artikel Terbaru</h3>
     </div>
 
     <!-- News Grid -->
-    <div id="news-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 relative z-10">
+    <div id="news-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-16 relative z-10 reveal"
+      style="transition-delay: 0.2s">
       <!-- Generated via JS -->
     </div>
 
-    <div class="text-center" id="load-more-container">
+    <div class="text-center reveal" id="load-more-container" style="transition-delay: 0.4s">
       <button id="show-more"
-        class="px-8 py-4 bg-slate-50 text-slate-700 border border-slate-200 rounded-xl font-bold text-sm hover:bg-slate-100 transition-all flex items-center justify-center gap-2 mx-auto">
+        class="px-8 py-4 bg-white text-gray-700 border border-gray-200 rounded-2xl font-bold text-sm hover:bg-gray-50 hover:border-brand-200 transition-all flex items-center justify-center gap-2 mx-auto active:scale-95">
         Lihat Selengkapnya
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
@@ -26,10 +25,10 @@
 
 <!-- Modal -->
 <div id="news-modal"
-  class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center z-[100] p-4">
-  <div class="bg-white rounded-[2rem] max-w-2xl w-full overflow-hidden relative shadow-2xl">
+  class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm hidden items-center justify-center z-[100] p-4 animate-fade-in">
+  <div class="bg-white rounded-[2.5rem] max-w-2xl w-full overflow-hidden relative shadow-2xl border border-white/20">
     <button id="modal-close"
-      class="absolute top-6 right-6 z-20 w-10 h-10 bg-white border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors">
+      class="absolute top-6 right-6 z-20 w-10 h-10 bg-white shadow-lg rounded-xl flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
       </svg>
@@ -40,14 +39,14 @@
     </div>
 
     <div class="p-8 sm:p-12 space-y-6">
-      <div class="flex items-center gap-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-        <span id="modal-category" class="text-blue-600"></span>
+      <div class="flex items-center gap-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
+        <span id="modal-category" class="text-brand-600"></span>
         <span>•</span>
         <span id="modal-date"></span>
       </div>
 
-      <h3 id="modal-title" class="font-gabarito text-2xl font-bold text-slate-900 leading-tight"></h3>
-      <p id="modal-desc" class="font-hubot text-slate-600 leading-relaxed text-sm max-h-48 overflow-y-auto"></p>
+      <h3 id="modal-title" class="text-2xl font-black text-gray-900 leading-tight"></h3>
+      <p id="modal-desc" class="text-gray-600 leading-relaxed text-sm max-h-48 overflow-y-auto pr-2"></p>
     </div>
   </div>
 </div>
@@ -88,21 +87,23 @@
     const mClose = document.getElementById('modal-close');
 
     function render() {
+      if (!grid) return;
       grid.innerHTML = '';
       newsData.forEach((item, i) => {
         const card = document.createElement('div');
-        card.className = 'group cursor-pointer space-y-6';
+        card.className = 'group cursor-pointer space-y-6 reveal';
+        card.style.transitionDelay = (0.1 * (i + 1)) + 's';
         card.innerHTML = `
-        <div class="h-64 rounded-3xl overflow-hidden shadow-sm">
+        <div class="h-64 rounded-[2rem] overflow-hidden shadow-lg border-4 border-white">
           <img src="${item.img}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
         </div>
-        <div class="space-y-3">
-          <div class="flex items-center gap-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-            <span class="text-blue-600">${item.category}</span>
+        <div class="space-y-3 px-2">
+          <div class="flex items-center gap-3 text-xs font-bold text-gray-400 uppercase tracking-widest">
+            <span class="text-brand-600">${item.category}</span>
             <span>${item.date}</span>
           </div>
-          <h3 class="font-gabarito text-xl font-bold text-slate-900 leading-tight group-hover:text-blue-600 transition-colors">${item.title}</h3>
-          <p class="font-hubot text-sm text-slate-500 leading-relaxed line-clamp-2">${item.desc}</p>
+          <h3 class="text-xl font-bold text-gray-900 leading-tight group-hover:text-brand-600 transition-colors">${item.title}</h3>
+          <p class="text-sm text-gray-500 leading-relaxed line-clamp-2">${item.desc}</p>
         </div>
       `;
         card.onclick = () => {
@@ -119,13 +120,17 @@
       });
     }
 
-    mClose.onclick = () => {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      document.body.style.overflow = 'auto';
-    };
+    if (mClose) {
+      mClose.onclick = () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+      };
+    }
 
-    modal.onclick = (e) => { if (e.target === modal) mClose.onclick(); };
+    if (modal) {
+      modal.onclick = (e) => { if (e.target === modal) mClose.onclick(); };
+    }
 
     render();
   })();

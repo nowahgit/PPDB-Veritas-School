@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Login - Veritas School</title>
-  
+  <title>Login - Veritas School PPDB</title>
   <link rel="icon" type="image/x-icon" href="{{ asset('image/icon/icon.png') }}">
-  
   @vite(['resources/css/app.css', 'resources/js/app.js'])
-  
   <script src="https://cdn.tailwindcss.com"></script>
-  
   <script>
     tailwind.config = {
       theme: {
@@ -18,263 +14,126 @@
           fontFamily: {
             hubot: ['"Hubot Sans"', 'sans-serif'],
             gabarito: ['"Gabarito"', 'sans-serif'],
-            dmserif: ['"DM Serif Text"', 'serif'],
+          },
+          colors: {
+            primary: { 50: '#eff6ff', 100: '#dbeafe', 500: '#2563eb', 600: '#1d4ed8', 700: '#1d40af' },
           },
         },
       },
     }
   </script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Hubot+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Hubot+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-  
   <style>
-    body {
-      font-family: 'Hubot Sans', sans-serif;
-    }
+    body { font-family: 'Hubot Sans', sans-serif; }
+    .input-focus-ring:focus { box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
+    .btn-primary { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); }
+    .btn-primary:hover { background: linear-gradient(135deg, #1d4ed8 0%, #1d40af 100%); box-shadow: 0 4px 14px rgba(29, 78, 216, 0.4); }
+    .panel-right { background: linear-gradient(160deg, #1e3a5f 0%, #0f172a 50%, #020617 100%); }
+    .card-form { box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-up { animation: fadeUp 0.5s ease-out forwards; }
+    .delay-1 { animation-delay: 0.05s; opacity: 0; }
+    .delay-2 { animation-delay: 0.1s; opacity: 0; }
+    .delay-3 { animation-delay: 0.15s; opacity: 0; }
+    .delay-4 { animation-delay: 0.2s; opacity: 0; }
+    .delay-5 { animation-delay: 0.25s; opacity: 0; }
   </style>
 </head>
+<body class="bg-slate-50 min-h-screen overflow-x-hidden">
 
-<body class="bg-[#fafbfc] overflow-hidden">
-
-<!-- Preloader -->
-<div 
-    x-data="{ loading: true }" 
-    x-init="window.addEventListener('load', () => setTimeout(() => loading = false, 300))" 
-    x-show="loading"
-    x-transition.opacity.duration.700ms
-    class="fixed inset-0 bg-white flex flex-col items-center justify-center z-[9999]"
->
-    <img src="{{ asset('image/icon/icon.png') }}" alt="Logo" class="w-28 h-28 mb-8">
-    <div class="w-16 h-16 border-4 border-t-blue-600 border-b-blue-300 border-l-blue-200 border-r-blue-400 rounded-full animate-spin"></div>
-</div>
-
-<!-- Main Container -->
-<div class="h-screen flex items-center justify-center overflow-hidden">
-  
-  <div class="w-full h-full bg-white overflow-hidden">
-    
-    <div class="grid lg:grid-cols-2 gap-0 h-full">
-      
-      <!-- Left Column - Login Form -->
-      <div class="p-8 sm:p-12 lg:p-16 flex flex-col justify-center">
-        
-        <!-- Logo -->
-        <div class="mb-8">
-          <img src="{{ asset('image/icon/icon.png') }}" alt="Logo Sekolah" class="h-14 w-14 object-contain">
-        </div>
-        
-        <!-- Header -->
-        <div class="mb-10">
-          <h1 class="font-gabarito text-4xl font-bold text-gray-900 mb-3">
-            Login
-          </h1>
-          <p class="text-gray-600 text-base leading-relaxed">
-            Masuk ke portal Veritas School untuk mengakses semua layanan dan informasi akademik Anda.
-          </p>
-        </div>
-
-        <!-- Login Form -->
-        <form method="POST" action="{{ route('login') }}" class="space-y-6">
-          @csrf
-          
-          @if ($errors->any())
-            <div class="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
-              @foreach ($errors->all() as $err)
-                <p>{{ $err }}</p>
-              @endforeach
-            </div>
-          @endif
-
-          <!-- Username Field -->
-          <div>
-            <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
-              Username
-            </label>
-            <input 
-              id="username" 
-              type="text" 
-              name="username" 
-              value="{{ old('username') }}" 
-              required 
-              autofocus
-              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition outline-none {{ $errors->has('username') ? 'border-red-500' : 'border-gray-300' }} text-gray-900"
-              placeholder="Masukkan username Anda"
-            >
-            @error('username')
-              <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
-          </div>
-
-          <!-- Password Field -->
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-              Password
-            </label>
-            <input 
-              id="password" 
-              type="password" 
-              name="password" 
-              required
-              class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition outline-none {{ $errors->has('password') ? 'border-red-500' : 'border-gray-300' }} text-gray-900"
-              placeholder="Masukkan password Anda"
-            >
-            @error('password')
-              <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
-          </div>
-
-          <!-- Remember Me & Forgot Password -->
-          <div class="flex items-center justify-between">
-            <label class="flex items-center text-sm text-gray-700 cursor-pointer">
-              <input 
-                type="checkbox" 
-                name="remember" 
-                class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-600 cursor-pointer"
-              >
-              <span class="ml-2">Ingat saya</span>
-            </label>
-           
-          </div>
-
-          <!-- Login Button -->
-          <button 
-            type="submit" 
-            class="w-full py-3.5 px-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition duration-200 mt-2"
-          >
-            Masuk
-          </button>
-        </form>
-
-        <!-- Register Link -->
-        <p class="text-center mt-8 text-gray-600 text-sm">
-          Belum memiliki akun? 
-          <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-700 font-semibold transition">
-            Daftar sekarang
-          </a>
-        </p>
-
-      </div>
-
-      <!-- Right Column - Carousel -->
-      <div 
-        class="bg-blue-600 p-8 sm:p-12 lg:p-16 flex flex-col justify-center items-center relative"
-        x-data="{
-          currentSlide: 0,
-          slides: [
-            {
-              title: 'Pembelajaran Berkualitas',
-              description: 'Sistem pendidikan modern dengan fokus pada pengembangan karakter dan akademik siswa.',
-              image: 'https://media.istockphoto.com/id/2172127765/photo/business-team-talking-during-break.webp?a=1&b=1&s=612x612&w=0&k=20&c=GJRtd5eDQTZClgu0NgkA70IdIOUXvuIBPGYay_1RNCA='
-            },
-            {
-              title: 'Fasilitas Lengkap',
-              description: 'Ruang kelas nyaman, laboratorium canggih, dan area olahraga yang mendukung kegiatan belajar.',
-              image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80'
-            },
-            {
-              title: 'Komunitas Solid',
-              description: 'Bergabunglah dengan keluarga besar Veritas School dan kembangkan potensi terbaik Anda.',
-              image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80'
-            }
-          ],
-          autoplay: null,
-          init() {
-            this.startAutoplay();
-          },
-          startAutoplay() {
-            this.autoplay = setInterval(() => {
-              this.nextSlide();
-            }, 5000);
-          },
-          stopAutoplay() {
-            if (this.autoplay) {
-              clearInterval(this.autoplay);
-            }
-          },
-          nextSlide() {
-            this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-          },
-          goToSlide(index) {
-            this.stopAutoplay();
-            this.currentSlide = index;
-            this.startAutoplay();
-          }
-        }"
-      >
-        
-        <!-- Carousel Content -->
-        <div class="w-full max-w-md">
-          
-          <!-- Image Container -->
-          <div class="relative mb-8 rounded-2xl overflow-hidden shadow-lg" style="height: 320px;">
-            <template x-for="(slide, index) in slides" :key="index">
-              <div 
-                x-show="currentSlide === index"
-                x-transition:enter="transition ease-out duration-500"
-                x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100"
-                x-transition:leave="transition ease-in duration-500"
-                x-transition:leave-start="opacity-100"
-                x-transition:leave-end="opacity-0"
-                class="absolute inset-0"
-              >
-                <img 
-                  :src="slide.image" 
-                  :alt="slide.title"
-                  class="w-full h-full object-cover"
-                >
-              </div>
-            </template>
-          </div>
-
-          <!-- Indicators -->
-          <div class="flex justify-center gap-2 mb-6">
-            <template x-for="(slide, index) in slides" :key="index">
-              <button
-                @click="goToSlide(index)"
-                class="transition-all duration-300 rounded-full"
-                :class="currentSlide === index ? 'w-8 h-2 bg-white' : 'w-2 h-2 bg-white/40 hover:bg-white/60'"
-                :aria-label="'Go to slide ' + (index + 1)"
-              ></button>
-            </template>
-          </div>
-
-          <!-- Text Content -->
-          <div class="text-center">
-            <template x-for="(slide, index) in slides" :key="index">
-              <div 
-                x-show="currentSlide === index"
-                x-transition:enter="transition ease-out duration-500 delay-100"
-                x-transition:enter-start="opacity-0 translate-y-4"
-                x-transition:enter-end="opacity-100 translate-y-0"
-              >
-                <h3 
-                  class="font-gabarito text-2xl font-bold text-white mb-3"
-                  x-text="slide.title"
-                ></h3>
-                <p 
-                  class="text-white/90 leading-relaxed"
-                  x-text="slide.description"
-                ></p>
-              </div>
-            </template>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
+  <div x-data="{ loading: true }"
+       x-init="window.addEventListener('load', () => setTimeout(() => loading = false, 400))"
+       x-show="loading"
+       x-transition:leave="transition ease-out duration-300"
+       class="fixed inset-0 bg-white z-[9999] flex flex-col items-center justify-center">
+    <img src="{{ asset('image/icon/icon.png') }}" alt="Logo" class="w-20 h-20 mb-6 object-contain">
+    <div class="w-10 h-10 border-2 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
   </div>
 
-</div>
+  <div class="min-h-screen flex flex-col lg:flex-row">
+    <div class="flex-1 flex items-center justify-center p-6 sm:p-8 lg:p-12">
+      <div class="w-full max-w-md">
+        <a href="{{ url('/') }}" class="inline-flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors mb-8">
+          <img src="{{ asset('image/icon/icon.png') }}" alt="Logo" class="h-10 w-10 object-contain">
+          <span class="font-gabarito font-semibold text-lg">Veritas School</span>
+        </a>
+
+        <div class="card-form bg-white rounded-2xl p-8 sm:p-10 animate-fade-up">
+          <h1 class="font-gabarito text-2xl sm:text-3xl font-bold text-slate-800 mb-1 animate-fade-up delay-1">Masuk ke akun</h1>
+          <p class="text-slate-500 text-sm mb-6 animate-fade-up delay-2">Gunakan username dan password Anda untuk mengakses portal.</p>
+
+          <form method="POST" action="{{ route('login') }}" class="space-y-5">
+            @csrf
+
+            @if ($errors->any())
+              <div class="rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-700 animate-fade-up delay-3">
+                @foreach ($errors->all() as $err)
+                  <p>{{ $err }}</p>
+                @endforeach
+              </div>
+            @endif
+
+            <div class="animate-fade-up delay-3">
+              <label for="username" class="block text-sm font-medium text-slate-700 mb-1.5">Username</label>
+              <div class="relative">
+                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                </span>
+                <input id="username" type="text" name="username" value="{{ old('username') }}" required autofocus
+                       class="w-full pl-11 pr-4 py-3 border rounded-xl input-focus-ring outline-none transition {{ $errors->has('username') ? 'border-red-400 bg-red-50/50' : 'border-slate-200 hover:border-slate-300' }} text-slate-800 placeholder-slate-400"
+                       placeholder="Masukkan username">
+              </div>
+              @error('username')
+                <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <div class="animate-fade-up delay-4">
+              <label for="password" class="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
+              <div class="relative">
+                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </span>
+                <input id="password" type="password" name="password" required
+                       class="w-full pl-11 pr-4 py-3 border rounded-xl input-focus-ring outline-none transition {{ $errors->has('password') ? 'border-red-400 bg-red-50/50' : 'border-slate-200 hover:border-slate-300' }} text-slate-800 placeholder-slate-400"
+                       placeholder="Masukkan password">
+              </div>
+              @error('password')
+                <p class="text-red-500 text-xs mt-1.5">{{ $message }}</p>
+              @enderror
+            </div>
+
+            <div class="flex items-center justify-between animate-fade-up delay-5">
+              <label class="flex items-center gap-2 cursor-pointer text-sm text-slate-600">
+                <input type="checkbox" name="remember" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-2 focus:ring-blue-500/30 cursor-pointer">
+                <span>Ingat saya</span>
+              </label>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 px-4 btn-primary text-white font-semibold rounded-xl transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+              Masuk
+            </button>
+          </form>
+
+          <p class="text-center text-slate-500 text-sm mt-6">
+            Belum punya akun?
+            <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-700 font-semibold">Daftar sekarang</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden lg:flex lg:w-[48%] panel-right items-center justify-center p-12 relative">
+      <div class="relative z-10 text-center max-w-sm">
+        <img src="{{ asset('image/icon/icon.png') }}" alt="Logo" class="h-24 w-24 mx-auto mb-6 opacity-90">
+        <h2 class="font-gabarito text-2xl font-bold text-white mb-3">Portal PPDB Veritas School</h2>
+        <p class="text-slate-300 text-sm leading-relaxed">Akses layanan pendaftaran dan informasi akademik dalam satu tempat.</p>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
