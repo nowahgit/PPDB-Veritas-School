@@ -8,9 +8,50 @@ use App\Models\PeriodeSeleksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SeleksiController extends Controller
 {
+    public function exportPdf()
+    {
+        $periodeAktif = PeriodeSeleksi::aktif()->first();
+
+        if (!$periodeAktif) {
+            return back()->with('error', 'Tidak ada periode aktif yang ditemukan.');
+        }
+
+        $pendaftar = User::with([
+            'prestasis',
+            'seleksi' => function ($q) use ($periodeAktif) {
+                $q->where('periode_id', $periodeAktif->id);
+            }
+        ])
+            ->where('role', 'PENDAFTAR')
+            ->where('periode_id', $periodeAktif->id)
+            ->get()
+            ->map(function (User $user) {
+                $user->avg = $user->getAverageScore();
+                $user->poin_prestasi = $this->hitungPoinPrestasi($user->prestasis);
+                $user->nilai_total = optional($user->seleksi)->nilai_total ?? ($user->avg + $user->poin_prestasi);
+                $user->status_seleksi = optional($user->seleksi)->status ?? 'Belum Diseleksi';
+                return $user;
+            });
+
+        if ($pendaftar->isEmpty()) {
+            return back()->with('error', 'Tidak ada data pendaftar untuk diekspor.');
+        }
+
+        $nomor_surat = "PPDB/" . date('Y') . "/" . str_pad($periodeAktif->id, 3, '0', STR_PAD_LEFT);
+
+        $pdf = Pdf::loadView('admin.seleksi_pdf', [
+            'pendaftar' => $pendaftar,
+            'periodeAktif' => $periodeAktif,
+            'nomor_surat' => $nomor_surat
+        ]);
+
+        return $pdf->stream('Hasil_Seleksi_' . str_replace(' ', '_', $periodeAktif->nama_periode) . '.pdf');
+    }
+
     /**
      * =========================
      * HALAMAN SELEKSI ADMIN
