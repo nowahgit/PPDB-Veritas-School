@@ -22,10 +22,8 @@ class RegisteredUserController extends Controller
     public function create(): View|RedirectResponse
     {
         $periodeAktif = PeriodeSeleksi::where('status', 'aktif')->first();
-        if (! $periodeAktif) {
-            return redirect()->route('landing')->with('error', 'Pendaftaran saat ini telah ditutup.');
-        }
-        return view('auth.register');
+
+        return view('auth.register', compact('periodeAktif'));
     }
 
     /**
@@ -36,8 +34,8 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $periodeAktif = PeriodeSeleksi::where('status', 'aktif')->first();
-        if (! $periodeAktif) {
-            return redirect()->route('landing')->with('error', 'Pendaftaran saat ini telah ditutup.');
+        if (!$periodeAktif) {
+            return back()->with('error', 'Tidak bisa mendaftar akun dikarenakan tidak ada periode pendaftaran aktif.');
         }
 
         $validated = $request->validate([
